@@ -1,9 +1,11 @@
 <!-- markdownlint-disable MD033 -->
 <!-- markdownlint-disable MD041 -->
 <p align="center">
-<img src="https://susee.phothin.dev/logo/rubygems_logo.png" width="160" height="160" alt="mmdevs" style="border-radius:50%" />
+<img src="https://susee.phothin.dev/logo/rubygems_logo.png" width="160" height="160" alt="rubygems" style="border-radius:50%" />
 </p>
 <h1 align="center">Jekyll::Tabler</h1>
+
+## Overview
 
 [Tabler Icons](https://tabler.io/icons) plugin for Jekyll site as liquid tag.
 

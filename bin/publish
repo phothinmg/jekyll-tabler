@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+read -p "Enter version: " version
+
+gem push jekyll-tabler-"$version".gem
+
+rm -rf jekyll-tabler-"$version".gem

@@ -19,7 +19,7 @@ module Jekyll
     def tabler_icons(type)
       data_path = File.join(
         Gem.loaded_specs["jekyll-tabler"].full_gem_path,
-        "data",
+        "assets",
         "#{type}.yml"
       )
       YAML.load_file(data_path)
