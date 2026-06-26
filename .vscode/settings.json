@@ -1,0 +1,29 @@
+{
+  "files.associations": {
+    "*.scss": "scss",
+    "*.html": "liquid"
+  },
+  "[liquid]": {
+    "editor.defaultFormatter": "sissel.shopify-liquid",
+    "editor.formatOnSave": true
+  },
+  "scss.validate": false,
+
+  // Formatting
+  "ruby.format": "rufo",
+  "editor.formatOnSave": true,
+
+  // Run Rufo via Bundler when available
+  "ruby.rufo.useBundler": true,
+
+  // Keep RuboCop linting enabled (optional) and run via Bundler
+  "ruby.lint": {
+    "rubocop": true
+  },
+  "ruby.lint.rubocop": {
+    "useBundler": true,
+    "lintOnSave": true,
+    "config": ".rubocop.yml"
+  },
+  "cSpell.words": ["shellsplit"]
+}
