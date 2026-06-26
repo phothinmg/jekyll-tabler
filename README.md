@@ -3,24 +3,22 @@
 <p align="center">
 <img src="https://susee.phothin.dev/logo/rubygems_logo.png" width="160" height="160" alt="mmdevs" style="border-radius:50%" />
 </p>
-<h1 align="center">Jekyll::Tabler-</h1>
+<h1 align="center">Jekyll::Tabler</h1>
 
-Liquid tag for [Tabler Icons](https://tabler.io/icons) for Jekyll site.
+[Tabler Icons](https://tabler.io/icons) plugin for Jekyll site as liquid tag.
 
 ## Installation
 
-TODO: Replace `UPDATE_WITH_YOUR_GEM_NAME_IMMEDIATELY_AFTER_RELEASE_TO_RUBYGEMS_ORG` with your gem name right after releasing it to RubyGems.org. Please do not do it earlier due to security reasons. Alternatively, replace this section with instructions to install your gem from git if you don't plan to release to RubyGems.org.
-
 Install the gem and add to the application's Gemfile by executing:
 
-```bash
-bundle add UPDATE_WITH_YOUR_GEM_NAME_IMMEDIATELY_AFTER_RELEASE_TO_RUBYGEMS_ORG
+```sh
+bundle add jekyll-tabler
 ```
 
 If bundler is not being used to manage dependencies, install the gem by executing:
 
 ```bash
-gem install UPDATE_WITH_YOUR_GEM_NAME_IMMEDIATELY_AFTER_RELEASE_TO_RUBYGEMS_ORG
+gem install jekyll-tabler
 ```
 
 ## Usage
