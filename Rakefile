@@ -21,5 +21,5 @@ task :build do
 end
 
 task :publish do
-  sh "bin/publish"
+  sh "bash bin/publish"
 end
