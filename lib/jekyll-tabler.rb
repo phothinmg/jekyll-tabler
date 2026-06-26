@@ -73,7 +73,7 @@ module Jekyll
     end
 
     def syntax_message
-      "Syntax: {% tabler icon_name [size] [color] [size=value] [color=value] %}"
+      "Syntax: {% tabler|tabler_filled icon_name [size] [color] [size=value] [color=value] %}"
     end
 
     def parse_optional_args(arguments) # rubocop:disable Metrics/MethodLength
