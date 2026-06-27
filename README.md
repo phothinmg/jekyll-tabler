@@ -52,9 +52,10 @@ plugins:
 
 ### Parameters
 
-Liquid variables are supported for all arguments, including top-level names like `icon_name` or `github` and dotted lookups like `page.icon_name`.Optional parameters can be passed as named arguments like `size=32` and `color=red` in any order.
+Liquid variables are supported for all arguments, including top-level names like `icon_name` or `brand-github` and dotted lookups like `page.icon_name`.Optional parameters can be passed as named arguments like `size=32` and `color=red` in any order.
 
 1. `icon_name`(Required) : Name of the [Tabler Icons](https://tabler.io/icons), must be first place after liquid tag name.
+   `icon_name` can find at search bar of <https://tabler.io/icons>.
 2. `size`(Optional) : Width and Height of SVG default to `24`.
 3. `color`(Optional) : Color of `fill` for filled SVG and `stroke` for outline SVG , default `currentColor`
 
