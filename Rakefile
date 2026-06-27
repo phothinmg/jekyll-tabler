@@ -30,6 +30,7 @@ task :release do
   # Run Build
   Rake::Task[:build].invoke
   Rake::Task[:publish].invoke
+  puts "Finished"
 end
 
 desc "Generate Icons"
