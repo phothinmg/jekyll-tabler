@@ -1,0 +1,9 @@
+main.home-layout {
+  width: 100%;
+  margin: 0;
+  max-width: none;
+  > section.home {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+}

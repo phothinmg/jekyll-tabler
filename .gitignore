@@ -8,4 +8,6 @@
 /tmp/
 /vendor/bundle/
 .notes.text
+_site
+.jekyll_cache
 

@@ -1,0 +1,20 @@
+---
+layout: default
+---
+
+{% assign icon_object = site.data.outline %}
+<main>
+  <section class="icons" aria-labelledby="icons-title">
+    <div class="icons_grid">
+      {% for item in icon_object %}
+        {% assign icon_name = item[0] %}
+        <button
+          class="icon_card"
+          data-tooltip="{{ icon_name }}"
+          aria-label="{{ icon_name }}">
+          {% include icon.html icon=icon_name size=32 %}
+        </button>
+      {% endfor %}
+    </div>
+  </section>
+</main>

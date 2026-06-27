@@ -42,28 +42,40 @@ const writeBaseIcons = async (type) => {
     const yaml = `${utils.bannerText}\n${result.join("\n")}`;
     await utils.writeFile(filePath, yaml);
 };
+
+// const writeCategoryIcons = async (type) => {
+//     const grouped = await groupedCategories(type);
+//     const keys = Object.keys(grouped);
+//     for (const key of keys) {
+//         const iconsArray = grouped[key];
+//         if (iconsArray) {
+//             const result = [];
+//             const filePath =
+//                 type === "outline"
+//                     ? utils.resolvePath(`docs/_data/${type}/${key}.yml`)
+//                     : utils.resolvePath(`docs/_data/${type}.yml`);
+//             for (const obj of iconsArray) {
+//                 const yml = utils.yamlSingleObject(obj.content, obj.name);
+//                 result.push(yml);
+//             }
+//             const yaml = `${utils.bannerText}\n${result.join("\n")}`;
+//             await utils.writeFile(filePath, yaml);
+//         }
+//     }
+// };
 /**
  * @param {"outline"|"filled"} type
  */
 const writeCategoryIcons = async (type) => {
-    const grouped = await groupedCategories(type);
-    const keys = Object.keys(grouped);
-    for (const key of keys) {
-        const iconsArray = grouped[key];
-        if (iconsArray) {
-            const result = [];
-            const filePath =
-                type === "outline"
-                    ? utils.resolvePath(`docs/_data/${type}/${key}.yml`)
-                    : utils.resolvePath(`docs/_data/${type}.yml`);
-            for (const obj of iconsArray) {
-                const yml = utils.yamlSingleObject(obj.content, obj.name);
-                result.push(yml);
-            }
-            const yaml = `${utils.bannerText}\n${result.join("\n")}`;
-            await utils.writeFile(filePath, yaml);
-        }
+    const filePath = utils.resolvePath(`docs/_data/${type}.yml`);
+    const iconsArray = await baseIcons(type);
+    const result = [];
+    for (const obj of iconsArray) {
+        const yml = utils.yamlSingleObject(obj.content, obj.name);
+        result.push(yml);
     }
+    const yaml = `${utils.bannerText}\n${result.join("\n")}`;
+    await utils.writeFile(filePath, yaml);
 };
 
 module.exports = { writeBaseIcons, writeCategoryIcons };
