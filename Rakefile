@@ -22,7 +22,7 @@ end
 
 # 3. Plugin
 # =========
-task :build do
+task :plugin_build do
   sh "gem build jekyll-tabler.gemspec"
 end
 
@@ -34,7 +34,7 @@ desc "Release to rubygem.org"
 task :release do
   puts "Start Building ..."
   # Run Build
-  Rake::Task[:build].invoke
+  Rake::Task[:plugin_build].invoke
   Rake::Task[:publish].invoke
   puts "Finished"
 end
@@ -69,6 +69,13 @@ task :dev do
 end
 
 desc "Build"
-task :build do
+task :site_build do
   sh "JEKYLL_ENV=production bundle exec jekyll build"
+end
+
+# 6. Git Sub Modules
+# ==================
+desc "Update"
+task :update_git do
+  sh "git submodule update --init --recursive --depth 1 tabler-icon"
 end

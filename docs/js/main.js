@@ -1,4 +1,5 @@
-(() => {
+// display icons par page and search icons
+function iconsDisplay() {
     const iconBtns = Array.from(document.querySelectorAll("[data-tabler-icon]"));
     const searchInput = document.querySelector("#icon-search-input");
     const noResultsMessage = document.querySelector("#no-results-message");
@@ -7,7 +8,7 @@
     const paginationContainer = document.querySelector("#pagination-container");
 
     // Pagination Configuration
-    const itemsPerPage = 100;
+    const itemsPerPage = 70;
     let currentPage = 1;
     let filteredIcons = []; // Stores only the icons matching the search
 
@@ -16,7 +17,7 @@
 
         // Step 1: Filter icons matching the search term
         filteredIcons = iconBtns.filter((btn) => {
-            const label = (btn.getAttribute("aria-label") || "").toLowerCase();
+            const label = (btn.getAttribute("data-tabler-name") || "").toLowerCase();
             return cleanTerm === "" || label.includes(cleanTerm);
         });
 
@@ -138,56 +139,27 @@
 
     // Initialize layout
     filterIcons();
-})();
-
-// (() => {
-//     const iconBtns = document.querySelectorAll("[data-tabler-icon]");
-//     const searchInput = document.querySelector("#icon-search-input");
-//     // 1. Select your "No icons found" element
-//     const noResultsMessage = document.querySelector("#no-results-message");
-
-//     function filterIcons(searchTerm = "") {
-//         const cleanTerm = searchTerm.trim().toLowerCase();
-//         let visibleCount = 0;
-
-//         iconBtns.forEach((btn, idx) => {
-//             const label = (btn.getAttribute("aria-label") || "").toLowerCase();
-
-//             // 2. Partial keyword matching (.includes allows partial words)
-//             if (cleanTerm === "" || label.includes(cleanTerm)) {
-//                 btn.style.display = "inline-flex";
-//                 visibleCount++; // Track how many match
-//             } else {
-//                 btn.style.display = "none";
-//             }
-//         });
-
-//         // 3. Toggle the "No icons found" message based on the count
-//         if (noResultsMessage) {
-//             if (visibleCount === 0) {
-//                 noResultsMessage.style.display = "block"; // Show message
-//             } else {
-//                 noResultsMessage.style.display = "none"; // Hide message
-//             }
-//         }
-//     }
-
-//     if (searchInput) {
-//         searchInput.addEventListener("input", (event) => {
-//             filterIcons(event.target.value);
-//         });
-//     }
-
-//     // Initialize layout
-//     filterIcons();
-// })();
-
-(() => {
+}
+// pop up for each icon
+function iconPopUp() {
     const defaultSize = "24";
     const defaultColor = "currentColor";
     const defaultPickerColor = "#000000";
 
     const iconBtns = document.querySelectorAll("[data-tabler-icon]");
+    const iconDialogs = document.querySelectorAll("[data-tabler-dialog]");
+
+    function getDialogObj() {
+        /**
+         * @type {{el:Element;idx:number;}[]}
+         */
+        const dialogObj = [];
+
+        iconDialogs.forEach((el, idx) => {
+            dialogObj.push({ el, idx });
+        });
+        return dialogObj;
+    }
 
     function getThemeTextColor(dialog) {
         const themeColor = getComputedStyle(dialog)
@@ -262,14 +234,17 @@
         return liquidTag;
     }
 
-    iconBtns.forEach((btn) => {
+    iconBtns.forEach((btn, idx) => {
         const tablerType = (
             btn.getAttribute("data-tabler-type") || ""
         ).toLowerCase();
-        const controlArea = (btn.getAttribute("aria-controls") || "").toLowerCase();
-        const iconName = (btn.getAttribute("aria-label") || "").toLowerCase();
-        const dialog = document.getElementById(controlArea);
-        if (!dialog) return;
+        // const controlArea = (btn.getAttribute("aria-controls") || "").toLowerCase();
+        const iconName = (btn.getAttribute("data-tabler-name") || "").toLowerCase();
+        // const dialog = document.getElementById(controlArea);
+        const dialogObj = getDialogObj();
+        const dia = dialogObj.find((dia) => dia.idx === idx);
+        if (!dia) return;
+        const dialog = dia.el;
         const closeBtn = dialog.querySelector("[data-tabler-close]");
         const copyBtn = dialog.querySelector("[data-tabler-copy]");
         const sizeInput = dialog.querySelector("[data-tabler-size]");
@@ -313,4 +288,9 @@
             }
         });
     });
-})();
+}
+
+// Initialize all
+
+iconsDisplay();
+iconPopUp();
