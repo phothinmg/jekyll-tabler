@@ -2,15 +2,12 @@
 <html lang="en">
   <head>
     {% include head.html %}
-    <title>
-      {{ site.title }}
-  </title>
+    <title>{{ site.title }}</title>
     <!-- Jekyll Plugin -->
-    {% feed_meta %}
-    {% seo %}
+    {% feed_meta %} {% seo %}
   </head>
   <body>
-    {% include header.html %}
-    {{ content }}
+    {% include header.html %} {{ content }}
+    <script src="{{ '/js/icons.js' | relative_url }}"></script>
   </body>
 </html>

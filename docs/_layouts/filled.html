@@ -2,19 +2,55 @@
 layout: default
 ---
 
-{% assign icon_object = site.data.filled %}
+{% assign icon_object = site.data.filled %} {% assign type_text = "filled" %}
 <main>
   <section class="icons" aria-labelledby="icons-title">
+    {% include search.html type=type_text %}
     <div class="icons_grid">
       {% for item in icon_object %}
         {% assign icon_name = item[0] %}
         <button
           class="icon_card"
           data-tooltip="{{ icon_name }}"
-          aria-label="{{ icon_name }}">
+          aria-label="{{ icon_name }}"
+          aria-controls="{{ icon_name }}"
+          data-tabler-type="filled"
+          data-tabler-icon>
           {% include icon_filled.html icon=icon_name size=32 %}
         </button>
+        <dialog id="{{ icon_name }}" class="icon_dialog">
+          <p class="icon_dialog_name">{{ icon_name }}</p>
+          {% include icon_filled.html icon=icon_name size=48 %}
+          <div class="icon_dialog_fields">
+            <label class="icon_dialog_field">
+              <span>Size</span>
+              <input
+                type="number"
+                min="1"
+                inputmode="numeric"
+                placeholder="24"
+                data-tabler-size />
+            </label>
+            <label class="icon_dialog_field">
+              <span>Color</span>
+              <input
+                type="text"
+                placeholder="currentColor"
+                data-tabler-color />
+            </label>
+          </div>
+<pre class="icon_dialog_code"><code data-tabler-code></code></pre>
+          <p
+            class="icon_dialog_status"
+            data-tabler-status
+            aria-live="polite"></p>
+          <div class="icon_dialog_actions">
+            <button type="button" data-tabler-copy>Copy tag</button>
+            <button type="button" data-tabler-close>Close</button>
+          </div>
+        </dialog>
       {% endfor %}
     </div>
   </section>
+  {% include not_found.html %}
 </main>

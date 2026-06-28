@@ -7,15 +7,21 @@ RuboCop::RakeTask.new
 
 task default: :rubocop
 
-# initial setup
+# 1. Initial Setup
+# ================
 task :setup do
   sh "bin/setup"
 end
+
+# 2. Bundle
+# =========
 
 task :install do
   sh "bundle install"
 end
 
+# 3. Plugin
+# =========
 task :build do
   sh "gem build jekyll-tabler.gemspec"
 end
@@ -33,6 +39,8 @@ task :release do
   puts "Finished"
 end
 
+# 4. Icons
+# ========
 desc "Generate Icons"
 task :icons, [:base, :cat] do |_, args|
   base = args[:base] || nil
@@ -51,4 +59,16 @@ task :icons, [:base, :cat] do |_, args|
     # Run: rake icons[--outline,--docs] || rake icons[--filled,--docs]
     system("node", "bin/icons", base, cat)
   end
+end
+
+# 5. Jekyll Docs Site
+# ===================
+desc "Dev"
+task :dev do
+  sh "bundle exec jekyll serve"
+end
+
+desc "Build"
+task :build do
+  sh "JEKYLL_ENV=production bundle exec jekyll build"
 end
