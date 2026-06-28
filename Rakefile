@@ -42,38 +42,11 @@ end
 # 4. Icons
 # ========
 desc "Generate Icons"
-task :icons, [:base, :cat] do |_, args|
-  base = args[:base] || nil
-  cat = args[:cat] || nil
-  if base.nil? && cat.nil?
-    # Generate all icons for plugin
-    # Run: rake icons
-    system("node", "bin/icons")
-  elsif !base.nil? && cat.nil?
-    # Generate base[--outline,--filled] icons for plugin
-    # Run: rake icons[--outline] || rake icons[--filled]
-    system("node", "bin/icons", base)
-  elsif !base.nil? && !cat.nil?
-    # For documentation site
-    # Generate category with base[--outline,--filled]
-    # Run: rake icons[--outline,--docs] || rake icons[--filled,--docs]
-    system("node", "bin/icons", base, cat)
-  end
+task :icons do
+  sh "node bin/icons"
 end
 
-# 5. Jekyll Docs Site
-# ===================
-desc "Dev"
-task :dev do
-  sh "bundle exec jekyll serve"
-end
-
-desc "Build"
-task :site_build do
-  sh "JEKYLL_ENV=production bundle exec jekyll build"
-end
-
-# 6. Git Sub Modules
+# 5. Git Sub Modules
 # ==================
 desc "Update"
 task :update_git do
