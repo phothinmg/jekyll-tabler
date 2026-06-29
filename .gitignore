@@ -6,8 +6,6 @@
 /pkg/
 /spec/reports/
 /tmp/
-/vendor/bundle/
 .notes.text
-/_site/
-/docs/.jekyll_cache/
+
 

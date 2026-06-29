@@ -66,13 +66,13 @@ Liquid variables are supported for all arguments, including top-level names like
   With default size and color
 
   ```liquid
-  {% tabler brand-github %}
+  {% tabler ti-brand-github %}
   ```
 
   With custom size and color
 
   ```liquid
-  {% tabler brand-github size=36 color=#673ab8 %}
+  {% tabler ti-brand-github size=36 color=#673ab8 %}
   ```
 
 - **Github filled icon**
@@ -80,13 +80,13 @@ Liquid variables are supported for all arguments, including top-level names like
   With default size and color
 
   ```liquid
-  {% tabler_filled brand-github %}
+  {% tabler_filled ti-brand-github %}
   ```
 
   With custom size and color
 
   ```liquid
-  {% tabler_filled brand-github size=36 color=#673ab8 %}
+  {% tabler_filled ti-brand-github size=36 color=#673ab8 %}
   ```
 
 ## Contributing

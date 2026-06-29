@@ -49,7 +49,7 @@ module Jekyll
       icons = tabler_icons("outline")
       ds = Array(icons[icon_name])
       paths = ds.map { |d| %(<path d="#{d}" />) }.join("\n")
-      <<~HTML
+      <<~SVG
         <svg xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
         fill="none"
@@ -64,7 +64,7 @@ module Jekyll
         <path stroke="none" d="M0 0h24v24H0z" fill="none" />
         #{paths}
         </svg>
-      HTML
+      SVG
     end
 
     # Builds the filled SVG after render-time values have been resolved.
@@ -72,7 +72,7 @@ module Jekyll
       icons = tabler_icons("filled")
       ds = Array(icons[icon_name])
       paths = ds.map { |d| %(<path d="#{d}" />) }.join("\n")
-      <<~HTML
+      <<~SVG
         <svg xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
         width="#{size}"
@@ -83,7 +83,7 @@ module Jekyll
         <path stroke="none" d="M0 0h24v24H0z" fill="none" />
         #{paths}
         </svg>
-      HTML
+      SVG
     end
 
     # Resolves a tag argument against the Liquid context when it looks like a

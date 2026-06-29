@@ -1,6 +1,18 @@
 const utils = require("./utils.js");
 const path = require("path");
 const { matter } = require("./matter.js");
+// /**
+//  *
+//  * @param {string} input
+//  */
+// const createFileName = (input) => {
+//     const split = input.split("-");
+//     if (split.length > 1) {
+//         return `ti_${split.join("_")}`;
+//     } else {
+//         return `ti_${input}`;
+//     }
+// };
 
 /**
  * @param {"outline"|"filled"} type
@@ -10,10 +22,11 @@ const baseIcons = async (type) => {
     const result = [];
     for (const file of files) {
         const fileName = path.basename(file).split(".")[0].trim();
+        // const fileName = createFileName(file_name);
         const fileContent = await utils.readFile(file);
         const { data, content } = matter(fileContent);
         result.push({
-            name: fileName,
+            name: `ti-${fileName}`,
             content,
             data,
         });
@@ -42,7 +55,6 @@ const writeBaseIcons = async (type) => {
     const yaml = `${utils.bannerText}\n${result.join("\n")}`;
     await utils.writeFile(filePath, yaml);
 };
-
 
 /**
  * @param {"outline"|"filled"} type

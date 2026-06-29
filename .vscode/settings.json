@@ -25,5 +25,5 @@
     "lintOnSave": true,
     "config": ".rubocop.yml"
   },
-  "cSpell.words": ["endraw", "inputmode", "rubygems", "shellsplit"]
+  "cSpell.words": ["endraw", "inputmode", "rubygems", "shellsplit", "yardoc"]
 }
