@@ -65,11 +65,31 @@ ${ds.map((d) => ` - ${d}`).join("\n")}`;
     return yml;
 };
 
+const jsonSingleObject = function (content, name, type, cat) {
+    const re = /<path\s+d="(.*)"\s+\/>/;
+
+    const lines = content.split("\n");
+    const obj = {
+        iconName: name,
+        iconType: type,
+        category: cat,
+        ds: [],
+    };
+
+    for (let i = 0; i < lines.length; i++) {
+        const m = re.exec(lines[i]);
+        if (m) obj.ds.push(m[1]);
+    }
+    return obj;
+};
+
 module.exports = {
     bannerText,
     resolvePath,
     readFile,
     writeFile,
     yamlSingleObject,
-    isPlainObject, globeIcons
+    isPlainObject,
+    globeIcons,
+    jsonSingleObject,
 };

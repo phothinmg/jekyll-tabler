@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="data/tabler.js"></script>
+    <script src="data/icons.js"></script>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="css/fonts.css" />
+    <link rel="stylesheet" href="css/styles.css" />
+    <title>Jekyll Tabler Icons</title>
+    <script>
+      (function () {
+        var themeKey = "mmdocs_local_theme";
+        var root = document.documentElement;
+        var theme = "light";
+
+        try {
+          var storedTheme = localStorage.getItem(themeKey);
+          if (storedTheme === "dark" || storedTheme === "light") {
+            theme = storedTheme;
+          } else if (
+            window.matchMedia &&
+            window.matchMedia("(prefers-color-scheme: dark)").matches
+          ) {
+            theme = "dark";
+          }
+        } catch (e) {
+          if (
+            window.matchMedia &&
+            window.matchMedia("(prefers-color-scheme: dark)").matches
+          ) {
+            theme = "dark";
+          }
+        }
+
+        root.setAttribute("data-theme", theme);
+        root.style.colorScheme = theme;
+      })();
+    </script>
+  </head>
+  <body>
+    <header role="navigation">
+      <nav>
+        <h1>Jekyll Tabler Icons</h1>
+      </nav>
+    </header>
+    <main role="main"></main>
+    <script>
+      const outlineIcons = tabler.filter((i) => i.type === "outline");
+      const icon = getIcon(outlineIcons[0], 45);
+      document.getElementById("icon").innerHTML = icon;
+    </script>
+  </body>
+</html>

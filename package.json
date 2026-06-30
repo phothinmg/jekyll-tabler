@@ -1,0 +1,27 @@
+{
+  "name": "jekyll-tabler",
+  "version": "1.0.0",
+  "description": "Jekyll Tabler",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "icons": "node tools/docs.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/phothinmg/jekyll-tabler.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/phothinmg/jekyll-tabler/issues"
+  },
+  "homepage": "https://github.com/phothinmg/jekyll-tabler#readme",
+  "dependencies": {
+    "@suseejs/yaml": "^0.1.1"
+  }
+}

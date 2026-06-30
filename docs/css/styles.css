@@ -1,0 +1,113 @@
+:root {
+  --color-bg: #f0f0f0;
+  --color-text: #1b1b1f;
+  --color-icon-bg: white;
+  --color-icon: black;
+  --color-bg-nav: color-mix(in srgb, var(--color-bg), black 0.2%);
+  --color-border: #e2e2e3;
+}
+html.dark,
+*[data-theme="dark"] {
+  --color-bg: #161618;
+  --color-text: #dfdfd6;
+  --color-icon-bg: black;
+  --color-icon: white;
+  --color-bg-nav: color-mix(in srgb, var(--color-bg), white 0.2%);
+  --color-border: #2e2e32;
+}
+:root {
+  --font-base: "Myanmar Inter", Helvetica, sans-serif;
+}
+*,
+:before,
+:after {
+  box-sizing: border-box;
+}
+* {
+  margin: 0;
+  padding: 0;
+  border-spacing: 0;
+}
+html {
+  -webkit-text-size-adjust: 100%;
+  font-size: 16px;
+  line-height: 1.4;
+  transition:
+    background-color 0.35s ease,
+    color 0.35s ease;
+}
+html.theme-switching *,
+html.theme-switching *::before,
+html.theme-switching *::after {
+  transition: none !important;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-width: 0;
+  min-height: 100vh;
+  line-height: 24px;
+  font-family: var(--font-base);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-synthesis: style;
+  text-rendering: optimizelegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-autospace: normal;
+  text-spacing-trim: normal;
+  margin: 0;
+  padding-top: 5.5rem;
+  font-size: 16px;
+  font-weight: 400;
+  transition:
+    background-color 0.35s ease,
+    color 0.35s ease;
+}
+
+main {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: var(--color-bg-nav);
+  border-bottom: 1px solid var(--color-border);
+  backdrop-filter: blur(20px);
+  z-index: 100;
+  transition:
+    background 0.35s ease,
+    border-color 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+header > nav {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+header > nav > div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 380px;
+  margin: 0 auto;
+}
+
+h1 {
+  font-weight: 600;
+  font-size: clamp(1.4rem, calc(1.28rem + 0.61vw), 1.73rem);
+  margin-bottom: 0.75rem;
+}
