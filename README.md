@@ -89,6 +89,10 @@ Liquid variables are supported for all arguments, including top-level names like
   {% tabler_filled ti-brand-github size=36 color=#673ab8 %}
   ```
 
+### Getting Liquid tag
+
+You can search liquid tag of icons , adjust size or color and copy from <https://phothinmg.github.io/jekyll-tabler/>.
+
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at <https://github.com/[USERNAME]/jekyll-tabler>. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/[USERNAME]/jekyll-tabler/blob/master/CODE_OF_CONDUCT.md).
