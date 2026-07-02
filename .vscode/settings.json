@@ -1,6 +1,7 @@
 {
   "files.associations": {
-    "*.scss": "scss"
+    "*.scss": "scss",
+    "*.html": "liquid"
   },
   "[liquid]": {
     "editor.defaultFormatter": "sissel.shopify-liquid",
@@ -24,6 +25,14 @@
     "lintOnSave": true,
     "config": ".rubocop.yml"
   },
-  "cSpell.words": ["endraw", "inputmode", "rubygems", "shellsplit", "yardoc"],
+  "cSpell.words": [
+    "contentinfo",
+    "endraw",
+    "inputmode",
+    "noopener",
+    "rubygems",
+    "shellsplit",
+    "yardoc"
+  ],
   "editor.maxTokenizationLineLength": 50000
 }

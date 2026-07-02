@@ -8,4 +8,7 @@
 /tmp/
 .notes.text
 node_modules
-
+.bundle
+vendor
+_site
+.jekyll-cache

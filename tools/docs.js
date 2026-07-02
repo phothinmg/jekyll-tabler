@@ -20,7 +20,7 @@ async function writeDocsIcon() {
         });
     }
     const txt = `/**\n* @type {{name:string;type:"outline"|"filled";ds:string[];}[]}\n*/\nconst tabler = Object.freeze(${JSON.stringify(data)});`.trim();
-    await utils.writeFile("docs/data/tabler.js", txt);
+    await utils.writeFile("docs/js/tabler/index.js", txt);
 }
 
 writeDocsIcon().catch((er) => console.log(er));

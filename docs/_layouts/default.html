@@ -1,0 +1,13 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    {% include head.html %}
+    <title>{{ site.title }}</title>
+    <!-- Jekyll Plugin -->
+    {% feed_meta %} {% seo %}
+  </head>
+  <body>
+    {{ content }}
+    <script src="{{ '/js/main.js' | relative_url }}"></script>
+  </body>
+</html>

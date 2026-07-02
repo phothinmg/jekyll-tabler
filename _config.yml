@@ -1,0 +1,20 @@
+url: https://phothinmg.github.io/
+baseurl: /jekyll-tabler
+title: Jekyll Tabler
+markdown: kramdown
+source: docs
+sass:
+  style: compressed
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+  - jekyll-minify-js
+sidebar:
+  - text: Home
+    link: /
+  - text: Filled
+    link: /filled
+minify_js:
+  entry_dir: js
+  output_dir: js

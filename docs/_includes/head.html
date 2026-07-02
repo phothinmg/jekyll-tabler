@@ -1,0 +1,50 @@
+<!-- cspell:disable -->
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Jekyll Tabler Icons Pligin" />
+<script>
+  (function () {
+    var themeKey = "mmdocs_local_theme";
+    var root = document.documentElement;
+    var theme = "light";
+
+    try {
+      var storedTheme = localStorage.getItem(themeKey);
+      if (storedTheme === "dark" || storedTheme === "light") {
+        theme = storedTheme;
+      } else if (
+        window.matchMedia &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches
+      ) {
+        theme = "dark";
+      }
+    } catch (e) {
+      if (
+        window.matchMedia &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches
+      ) {
+        theme = "dark";
+      }
+    }
+
+    root.setAttribute("data-theme", theme);
+    root.style.colorScheme = theme;
+  })();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link
+  rel="preconnect"
+  href="https://fonts.gstatic.com"
+  crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+<link
+  rel="preload"
+  href="{{ '/css/styles.css' | relative_url }}"
+  as="style" />
+<link rel="stylesheet" href="{{ '/css/styles.css' | relative_url }}" />
+  <!-- Favicons -->
+<link
+  rel="shortcut icon"
+  href="{{ '/favicon.ico'| relative_url }}"
+  type="image/x-icon">
+<script src="{{ '/js/tabler/index.js' | relative_url }}"></script>
