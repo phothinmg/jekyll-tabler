@@ -35,13 +35,19 @@ module Jekyll
     #
     # The YAML files map an icon name to one or more SVG path definitions.
     # This is the only place where the plugin reaches into packaged assets.
+    #
+    # Results are memoized in a module-level cache so each file is read and
+    # parsed exactly once per build, regardless of how many tag renders occur.
     def tabler_icons(type)
-      data_path = File.join(
-        Gem.loaded_specs["jekyll-tabler"].full_gem_path,
-        "assets",
-        "#{type}.yml"
-      )
-      YAML.load_file(data_path)
+      @tabler_icons_cache ||= {}
+      @tabler_icons_cache[type] ||= begin
+        data_path = File.join(
+          Gem.loaded_specs["jekyll-tabler"].full_gem_path,
+          "assets",
+          "#{type}.yml"
+        )
+        YAML.load_file(data_path)
+      end
     end
 
     # Builds the outline SVG after render-time values have been resolved.
