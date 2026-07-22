@@ -5,6 +5,8 @@
 </p>
 <h1 align="center">Jekyll::Tabler</h1>
 
+[![Gem Version](https://badge.fury.io/rb/jekyll-tabler.svg)](https://badge.fury.io/rb/jekyll-tabler)
+
 ## Overview
 
 [Tabler Icons](https://tabler.io/icons) plugin for Jekyll site as liquid tag.
