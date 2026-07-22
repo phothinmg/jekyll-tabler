@@ -1,0 +1,31 @@
+# frozen_string_literal: true
+
+require "yaml"
+
+def precompile(type) # rubocop:disable Metrics/MethodLength,Metrics/AbcSize
+  yaml_path = "assets/#{type}.yml"
+  rb_path   = "lib/#{type}_data.rb"
+
+  data = YAML.load_file(yaml_path)
+
+  File.open(rb_path, "w") do |f|
+    f.puts "# frozen_string_literal: true"
+    f.puts "# cspell:disable"
+    f.puts "module Jekyll"
+    f.puts "  module Tabler"
+    f.puts "    #{type.upcase}_DATA = {"
+
+    data.each do |icon_name, paths|
+      # Format paths into an escaped, clean array string
+      formatted_paths = paths.map(&:inspect).join(", ")
+      f.puts "      #{icon_name.inspect} => [#{formatted_paths}],"
+    end
+
+    f.puts "    }.freeze"
+    f.puts "  end"
+    f.puts "end"
+  end
+end
+
+precompile("outline")
+precompile("filled")

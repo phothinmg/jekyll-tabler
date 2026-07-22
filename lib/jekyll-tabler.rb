@@ -1,27 +1,11 @@
 # frozen_string_literal: true
 
-# Copyright (c) 2026 phothinmg
-# <https://github.com/phothinmg/jekyll-tabler>
-
 require "jekyll"
-require "fileutils"
 require "shellwords"
-require "yaml"
 
 require_relative "version"
 
 # Main plugin entrypoint.
-#
-# Flow overview for maintainers:
-# 1. This file is required by Jekyll when the plugin is listed in `_config.yml`.
-# 2. The two Liquid tags are registered at the bottom of the file.
-# 3. When Jekyll parses a page containing `{% tabler %}` or
-#    `{% tabler_filled %}`, Liquid instantiates the matching tag class and
-#    runs `initialize` once to parse the markup.
-# 4. During page rendering, Liquid calls `render`, which resolves literal
-#    values or Liquid variables from the page context.
-# 5. The resolved icon name is looked up in the packaged YAML asset and then
-#    wrapped in SVG markup for the final HTML output.
 module Jekyll
   # Shared helpers and Liquid tag implementations for Tabler icons.
   module Tabler
@@ -31,17 +15,16 @@ module Jekyll
 
     module_function
 
-    # Loads the icon path data that ships with the gem.
-    #
-    # The YAML files map an icon name to one or more SVG path definitions.
-    # This is the only place where the plugin reaches into packaged assets.
+    # Lazy-loads the precompiled Ruby file only when a specific icon set is first requested.
+    # This keeps Jekyll startup speeds instant.
     def tabler_icons(type)
-      data_path = File.join(
-        Gem.loaded_specs["jekyll-tabler"].full_gem_path,
-        "assets",
-        "#{type}.yml"
-      )
-      YAML.load_file(data_path)
+      if type == "filled"
+        require_relative "filled_data" unless defined?(FILLED_DATA)
+        FILLED_DATA # Ruby reuses this native constant instantly; no extra cache needed
+      else
+        require_relative "outline_data" unless defined?(OUTLINE_DATA)
+        OUTLINE_DATA # Ruby reuses this native constant instantly; no extra cache needed
+      end
     end
 
     # Builds the outline SVG after render-time values have been resolved.
@@ -102,9 +85,6 @@ module Jekyll
     end
 
     # Splits optional arguments into named options and positional arguments.
-    #
-    # Named options are validated here so each tag class can keep its
-    # initializer focused on assigning the final values.
     def parse_optional_args(arguments) # rubocop:disable Metrics/MethodLength
       arguments.each_with_object([{}, []]) do |argument, memo|
         options = memo[0]
@@ -125,10 +105,6 @@ module Jekyll
     end
 
     # Handles `{% tabler ... %}` tags.
-    #
-    # `initialize` runs during Liquid parsing, not page rendering, so this
-    # method only stores raw arguments. Variable resolution happens later in
-    # `render` when the page context is available.
     class OutlineTag < Liquid::Tag
       def initialize(tag_name, markup, tokens) # rubocop:disable Metrics/AbcSize
         super
@@ -147,8 +123,6 @@ module Jekyll
         raise Liquid::SyntaxError, e.message
       end
 
-      # Converts stored arguments into final values for the current page and
-      # delegates SVG generation to the shared helper.
       def render(context)
         icon_name = Jekyll::Tabler.resolve_argument(@icon_name, context)
         size = Jekyll::Tabler.resolve_argument(@size, context)
@@ -159,9 +133,6 @@ module Jekyll
     end
 
     # Handles `{% tabler_filled ... %}` tags.
-    #
-    # The control flow mirrors `OutlineTag`; the only behavior difference is
-    # the final SVG wrapper that uses filled icon data.
     class FilledTag < Liquid::Tag
       def initialize(tag_name, markup, tokens) # rubocop:disable Metrics/AbcSize
         super
@@ -180,8 +151,6 @@ module Jekyll
         raise Liquid::SyntaxError, e.message
       end
 
-      # Converts stored arguments into final values for the current page and
-      # delegates SVG generation to the shared helper.
       def render(context)
         icon_name = Jekyll::Tabler.resolve_argument(@icon_name, context)
         size = Jekyll::Tabler.resolve_argument(@size, context)

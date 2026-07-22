@@ -14,9 +14,13 @@ Gem::Specification.new do |spec|
   spec.metadata["homepage_uri"] = spec.homepage
   spec.metadata["changelog_uri"] = "https://github.com/phothinmg/jekyll-tabler/blob/main/CHANGELOG.md"
   spec.metadata["rubygems_mfa_required"] = "true"
-  spec.files = [*Dir["lib/**/*.rb"], *Dir["assets/**/*"], "LICENSE.txt", "README.md"]
+  spec.files = [*Dir["lib/**/*.rb"], "LICENSE.txt", "README.md"]
+  # spec.files = Dir.chdir(File.expand_path(__dir__)) do
+  #   `git ls-files -z`.split("\x0").reject do |f|
+  #     f.match(%r{^(test|spec|features|assets)/}) # Exclude assets directory from final distribution
+  #   end
+  # end
   spec.require_paths = ["lib"]
-  spec.add_dependency "fileutils", ">= 1.8"
   spec.add_dependency "jekyll", "~> 4.4"
-  spec.add_dependency "yaml", ">= 0.4.0"
+  spec.add_dependency "shellwords", ">= 0.2.2"
 end

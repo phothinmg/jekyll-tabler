@@ -7,48 +7,43 @@ RuboCop::RakeTask.new
 
 task default: :rubocop
 
-# 1. Initial Setup
-# ================
 task :setup do
   sh "bin/setup"
 end
 
-# 2. Bundle
-# =========
-
-task :install do
-  sh "bundle install"
+task :dev do
+  sh "bundle exec jekyll serve"
 end
 
-# 3. Plugin
-# =========
-task :plugin_build do
-  sh "gem build jekyll-tabler.gemspec"
+task :lint do
+  sh "bundle exec rubocop"
 end
 
-task :publish do
-  sh "bash bin/publish"
+task :fmt do
+  sh "bundle exec rufo ."
+end
+
+task :build do
+  sh "JEKYLL_ENV=production bundle exec jekyll build"
 end
 
 desc "Release to rubygem.org"
 task :release do
-  puts "Start Building ..."
   # Run Build
-  Rake::Task[:plugin_build].invoke
-  Rake::Task[:publish].invoke
-  puts "Finished"
+  sh "gem build jekyll-tabler.gemspec"
+  sh "bash bin/publish"
 end
 
-# 4. Icons
-# ========
 desc "Generate Icons"
 task :icons do
-  sh "node bin/icons"
-end
-
-# 5. Git Sub Modules
-# ==================
-desc "Update"
-task :update_git do
+  # Update Git Sub Modules
   sh "git submodule update --init --recursive --depth 1 tabler-icon"
+  # Generate Icons to Assets
+  sh "node bin/icons_to_assets.js"
+  # Generate Icons from assets to docs/js/tabler
+  sh "node bin/docs_icons.js"
+  # Compile icons data from yaml to ruby
+  sh "ruby bin/precompile"
+  # Remove assets directory
+  sh "rm -rf assets"
 end

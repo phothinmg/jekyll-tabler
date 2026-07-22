@@ -9,6 +9,9 @@
 
 [Tabler Icons](https://tabler.io/icons) plugin for Jekyll site as liquid tag.
 
+> [!WARNING]
+> If you are using a released version up to `0.1.2`, see [Performance note for older versions](#performance-note-for-older-versions). Those releases re-load and re-parse the icon YAML files on every `{% tabler %}` and `{% tabler_filled %}` render, which can slow down builds on sites that generate many pages.
+
 ## Installation
 
 Install the gem and add to the application's Gemfile by executing:
@@ -91,7 +94,43 @@ Liquid variables are supported for all arguments, including top-level names like
 
 ### Getting Liquid tag
 
-You can search liquid tag of icons , adjust size or color and copy from <https://phothinmg.github.io/jekyll-tabler/>.
+You can search for icon Liquid tags, adjust the size or color, and copy the result from <https://phothinmg.github.io/jekyll-tabler/>.
+
+## Performance note for older versions
+
+Released versions up to `0.1.2` are affected by the [uncached `YAML.load_file` issue](https://github.com/phothinmg/jekyll-tabler/issues/2).
+If you use this plugin together with page-generating plugins such as `jekyll-paginate-v2` autopages, every `{% tabler %}` and `{% tabler_filled %}` render triggers a full disk read and YAML parse of the icon data files.
+On sites with many generated pages, that repeated work can noticeably slow down builds.
+
+If you are using one of those released versions, add the following workaround in your site's `_plugins` directory. This patch was suggested by [Sri Harsha Chilakapati](https://github.com/sriharshachilakapati).
+
+`_plugins/tabler_cache.rb`
+
+```ruby
+# frozen_string_literal: true
+
+# Monkey-patch jekyll-tabler to cache YAML icon data.
+# The original `tabler_icons` method calls YAML.load_file on every render,
+# re-reading and re-parsing a 956KB file each time. This caches the result
+# so each file is loaded exactly once per build.
+
+module Jekyll
+  module Tabler
+    @tabler_icon_data = {}
+
+    def self.tabler_icons(type)
+      @tabler_icon_data[type] ||= begin
+        data_path = File.join(
+          Gem.loaded_specs["jekyll-tabler"].full_gem_path,
+          "assets",
+          "#{type}.yml"
+        )
+        YAML.load_file(data_path)
+      end
+    end
+  end
+end
+```
 
 ## Contributing
 
