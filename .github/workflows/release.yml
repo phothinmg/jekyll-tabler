@@ -13,6 +13,9 @@ jobs:
       contents: read
       id-token: write
 
+    # If you configured a GitHub environment on RubyGems, you must use it here.
+    environment: release
+
     steps:
       - name: Checkout
         uses: actions/checkout@v6
