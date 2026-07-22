@@ -1,0 +1,40 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      id-token: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.2"
+          bundler-cache: true
+      - name: Extract release version
+        id: version
+        run: echo "value=${GITHUB_REF_NAME#v}" >> "$GITHUB_OUTPUT"
+      - name: Verify tag matches gem version
+        env:
+          RELEASE_VERSION: ${{ steps.version.outputs.value }}
+        run: |
+          ruby -e 'actual = File.read("lib/version.rb")[/VERSION = "([^"]+)"/, 1]; abort("Unable to read gem version") unless actual; abort("Tag version #{ENV.fetch("RELEASE_VERSION")} does not match gem version #{actual}") unless actual == ENV.fetch("RELEASE_VERSION")'
+      - name: Configure RubyGems credentials
+        uses: rubygems/configure-rubygems-credentials@v2.0.0
+      - name: Publish gems
+        env:
+          VERSION: ${{ steps.version.outputs.value }}
+        run: rake release

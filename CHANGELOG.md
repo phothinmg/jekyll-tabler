@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## [0.1.3] - 2026-07-22
+
+### Fixed
+
+- [Uncached `YAML.load_file` issue](https://github.com/phothinmg/jekyll-tabler/issues/2).
+
 ## [0.1.0] - 2026-06-25
 
 ### Added

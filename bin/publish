@@ -1,7 +1,16 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-read -p "Enter version: " version
+version="${1:-${VERSION:-}}"
+
+if [[ -z "$version" ]]; then
+	if [[ -t 0 ]]; then
+		read -r -p "Enter version: " version
+	else
+		echo "VERSION is required when running non-interactively" >&2
+		exit 1
+	fi
+fi
 
 gem push jekyll-tabler-"$version".gem
 
