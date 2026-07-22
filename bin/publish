@@ -1,17 +1,30 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-version="${1:-${VERSION:-}}"
+version="${1:-}"
 
 if [[ -z "$version" ]]; then
-	if [[ -t 0 ]]; then
-		read -r -p "Enter version: " version
-	else
-		echo "VERSION is required when running non-interactively" >&2
-		exit 1
-	fi
+	read -p "Enter version: " version
 fi
 
-gem push jekyll-tabler-"$version".gem
+shopt -s nullglob
+gems=()
 
-rm -rf jekyll-tabler-"$version".gem
+if [[ -f jekyll-tabler-"$version".gem ]]; then
+	gems+=(jekyll-tabler-"$version".gem)
+fi
+
+for gem_file in jekyll-tabler-"$version"-*.gem; do
+	gems+=("$gem_file")
+done
+
+if [[ ${#gems[@]} -eq 0 ]]; then
+	printf 'No gems found for version %s\n' "$version" >&2
+	exit 1
+fi
+
+for gem_file in "${gems[@]}"; do
+	gem push "$gem_file"
+done
+
+rm -f "${gems[@]}"

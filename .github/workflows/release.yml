@@ -30,14 +30,21 @@ jobs:
       - name: Extract release version
         id: version
         run: echo "value=${GITHUB_REF_NAME#v}" >> "$GITHUB_OUTPUT"
-      - name: Verify tag matches gem version
+      - name: Verify tag matches version
         env:
-          RELEASE_VERSION: ${{ steps.version.outputs.value }}
+          RELEASE_VERSION: ${{ github.ref_name }}
         run: |
-          ruby -e 'actual = File.read("lib/version.rb")[/VERSION = "([^"]+)"/, 1]; abort("Unable to read gem version") unless actual; abort("Tag version #{ENV.fetch("RELEASE_VERSION")} does not match gem version #{actual}") unless actual == ENV.fetch("RELEASE_VERSION")'
+          VERSION="${RELEASE_VERSION#v}"
+          export VERSION
+          ruby -e 'require "./lib/version"; abort("tag/version mismatch") unless Jekyll::Tabler::VERSION == ENV.fetch("VERSION")'
+
+      - name: Build all gems
+        run: gem build jekyll-tabler.gemspec
+
       - name: Configure RubyGems credentials
         uses: rubygems/configure-rubygems-credentials@v2.0.0
+
       - name: Publish gems
         env:
-          VERSION: ${{ steps.version.outputs.value }}
-        run: rake release
+          RELEASE_VERSION: ${{ github.ref_name }}
+        run: bash bin/publish "${RELEASE_VERSION#v}"

@@ -34,6 +34,7 @@
     "Harsha",
     "inputmode",
     "noopener",
+    "nullglob",
     "rubygems",
     "shellsplit",
     "yardoc"
